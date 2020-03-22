@@ -1,0 +1,26 @@
+{
+  "name": "queue-me",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "install:functions": "cd functions && npm install",
+    "build:frontend": "cd frontend && npm run build",
+    "build:functions": "cd functions && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/discovrd/queueme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/discovrd/queueme#readme",
+  "devDependencies": {
+    "@firebase/testing": "^0.17.1",
+    "concurrently": "^5.1.0",
+    "firebase-tools": "^7.13.0"
+  },
+  "dependencies": {}
+}

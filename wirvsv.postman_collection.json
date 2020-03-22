@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "6f8eccf5-2b21-4580-9a23-ce8a7083950f",
+		"name": "wirvsv",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Create Location",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"salutation\": \"Herr\",\n    \"title\": \"Dr.\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"Arzt\",\n    \"locationName\": \"Dr. Test Arzt Frauenarzt 2\",\n    \"phone\": \"132456789\",\n    \"street\": \"Somestreet\",\n\t\"street_no\": \"15\",\n    \"zip\": \"30111\",\n    \"email\": \"some@email.de\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/locations/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search location zip",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fullName\": \"a b\",\n\t\"phone\": \"12345\",\n\t\"note\": \"asdasd\",\n\t\"locationId\": 2,\n\t\"email\": \"a@b.de\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/locations/search/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"locations",
+								"search",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/tickets/83079c8f-f9d8-425e-8b9d-b453fbacf420",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"tickets",
+								"83079c8f-f9d8-425e-8b9d-b453fbacf420"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get First",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"locationId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/tickets/83079c8f-f9d8-425e-8b9d-b453fbacf420/first",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"tickets",
+								"83079c8f-f9d8-425e-8b9d-b453fbacf420",
+								"first"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/tickets/83079c8f-f9d8-425e-8b9d-b453fbacf420",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"tickets",
+								"83079c8f-f9d8-425e-8b9d-b453fbacf420"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Emergency",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"locationId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/tickets/83079c8f-f9d8-425e-8b9d-b453fbacf420/emergency",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"tickets",
+								"83079c8f-f9d8-425e-8b9d-b453fbacf420",
+								"emergency"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fullName\": \"a b 3\",\n\t\"phone\": \"12345\",\n\t\"note\": \"asdasd\",\n\t\"locationId\": \"83079c8f-f9d8-425e-8b9d-b453fbacf420\",\n\t\"email\": \"a@b.de\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5001/queueme-dev/us-central1/tickets/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"queueme-dev",
+								"us-central1",
+								"tickets",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

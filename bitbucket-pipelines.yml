@@ -1,0 +1,33 @@
+image:
+  name: node:10.16.2
+pipelines:
+  default:
+    - step:
+        caches:
+          - frontend
+          - functions
+          - firebase
+        name: Build, test and deploy to dev
+        script:
+          - mkdir /private
+          - ./run.sh install_dependencies
+          - ./run.sh test
+          - ./run.sh build dev
+          - ./run.sh deploy dev
+    - step:
+        caches:
+          - frontend
+          - functions
+          - firebase
+        name: Deploy to production and test
+        trigger: manual
+        script:
+          - mkdir /private
+          - ./run.sh build production
+          - ./run.sh deploy production
+
+definitions:
+  caches:
+    frontend: frontend/node_modules
+    functions: functions/node_modules
+    firebase: node_modules

@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "queueme-dev",
+    "dev": "queueme-dev",
+    "production": "queueme-77d7f"
+  }
+}
