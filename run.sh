@@ -1,10 +1,11 @@
+#!/usr/bin/env sh
 # exit when any command fails
 set -e
 
 ###############################################################################
 # Execution environment
 ###############################################################################
-export TMPDIR=/private$TMPDIR
+export TMPDIR=/tmp$TMPDIR
 export DEBUG=0
 
 ###############################################################################
@@ -25,13 +26,74 @@ usage() {
 task_install_dependencies() {
   npm install
   npm run install:frontend
-  npm run install:backend
+  npm run install:functions
+}
+
+task_lint() {
+  (cd frontend && npm run lint)
+  (cd functions && npm run lint)
+}
+
+###############################################################################
+# Build
+###############################################################################
+
+task_build() {
+  npm run build:frontend
+}
+
+###############################################################################
+# Clean
+###############################################################################
+
+task_clean() {
+  echo "hello clean up"
+}
+
+###############################################################################
+# Run
+###############################################################################
+
+task_run() {
+   ./node_modules/.bin/concurrently "./node_modules/.bin/firebase emulators:start --project=dev" "cd frontend && npm run watch"
+}
+
+
+###############################################################################
+# Test
+###############################################################################
+task_test_unit_frontend() {
+  echo "test frontend"
+}
+
+task_test_unit_backend() {
+ echo "test backend"
+}
+
+task_test() {
+   task_lint
+   task_test_unit_frontend
+   task_test_unit_backend
+}
+
+###############################################################################
+# Database
+###############################################################################
+task_database_create_table() {
+    echo "Hello create table"
+}
+
+task_database_seed_table() {
+    echo "Hello seed table"
+}
+
+task_database_delete_table() {
+  echo "Hello delete table"
 }
 
 ###############################################################################
 # Client Config
 ###############################################################################
-
 task_generate_frontend_config() {
   local env=$1
 
@@ -55,88 +117,6 @@ task_generate_frontend_config() {
   echo "firebaseConfigMeasurementId=$(echo $parameter_store | jq '.measurement.id')" >> ./frontend/.env
 
   cat ./frontend/.env
-}
-
-###############################################################################
-# Build
-###############################################################################
-
-task_build() {
-  local env=$1
-
-  if [[ -z $env ]]
-  then 
-    echo "error: missing environment"
-    exit 1
-  fi 
-
-  task_generate_frontend_config $env
-
-  npm run build:frontend
-  npm run build:backend
-}
-
-###############################################################################
-# Clean
-###############################################################################
-
-task_clean() {
-  echo "hello clean up"
-}
-
-###############################################################################
-# Run
-###############################################################################
-task_start_dev() {
-  concurrently "cd backend && npm run start:dev" "cd frontend && npm run dev" 
-}
-
-
-###############################################################################
-# Run
-###############################################################################
-
-task_run() {
-  concurrently "cd backend && npm run start:dev" "cd frontend && npm run build && npm run dev" "firebase serve"
-}
-
-###############################################################################
-# Run
-###############################################################################
-
-task_cypress_open() {
-  ./frontend/node_modules/.bin/cypress open
-}
-
-###############################################################################
-# Test
-###############################################################################
-task_test_unit_frontend() {
- (cd frontend && npm run test)
-}
-
-task_test_unit_backend() {
- (cd backend && npm run test)
-}
-
-task_test_unit() {
-   task_test_unit_frontend
-   task_test_unit_backend
-}
-
-###############################################################################
-# Database
-###############################################################################
-task_database_create_table() {
-    echo "Hello create table"
-}
-
-task_database_seed_table() {
-    echo "Hello seed table"
-}
-
-task_database_delete_table() {
-  echo "Hello delete table"
 }
 
 ###############################################################################
