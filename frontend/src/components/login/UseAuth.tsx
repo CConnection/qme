@@ -1,23 +1,23 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useHistory } from "react-router-dom";
 import { auth } from "../firebase/firebase";
-import { AuthContext } from "./AuthContext";
+import { User, AuthContext } from "./AuthContext";
 
-/* eslint-disable react-hooks/rules-of-hooks */
-export const WithAuth = WrappedComponent => {
+export const WithAuth = (WrappedComponent: React.FC): React.FC => {
   return () => {
     const authContext = useContext(AuthContext);
-    const router = useRouter();
+    const router = useHistory();
 
     useEffect(() => {
-      if (authContext.user.token === undefined) {
+      if (authContext!.user.token === undefined) {
         router.push("/login");
       }
     });
 
-    let result;
-    if (authContext.user.token !== undefined) {
+    let result: JSX.Element;
+
+    if (authContext!.user.token !== undefined) {
       result = <WrappedComponent></WrappedComponent>;
     } else {
       result = <div></div>;
@@ -26,11 +26,15 @@ export const WithAuth = WrappedComponent => {
     return result;
   };
 };
-/* eslint-disable react-hooks/rules-of-hooks */
-export const useAuth = () => {
-  const authContext = useContext(AuthContext);
 
-  const signIn = async (email, password) => {
+export const useAuth = (): {
+  user: User;
+  signIn: (email: string, password: string) => void;
+  signOut: () => void;
+} => {
+  const authContext = useContext(AuthContext)!;
+
+  const signIn = async (email: string, password: string) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       const token = await auth.currentUser?.getIdToken();

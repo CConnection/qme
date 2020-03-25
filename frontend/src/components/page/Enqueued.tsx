@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Enqueued = () => {
+export const Enqueued: React.FC = () => {
   let { enqueueId } = useParams();
   const { t } = useTranslation();
   const classes = useStyles();
@@ -114,5 +114,3 @@ const Enqueued = () => {
     </Container>
   );
 };
-
-export default Enqueued;

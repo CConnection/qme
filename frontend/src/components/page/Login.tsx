@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default () => {
+export const Login: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 

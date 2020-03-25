@@ -1,5 +1,5 @@
 import React from "react";
-import LandingButton from "../button/LandingButton";
+import { LandingButton } from "../button/LandingButton";
 import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import EnhancedIcon from "@material-ui/icons/EnhancedEncryption";
 import { Typography, Grid, Container } from "@material-ui/core";
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Home() {
+export const Home: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -46,7 +46,7 @@ export default function Home() {
       <Container maxWidth="sm">
         <Grid container justify="center" spacing={6}>
           <Grid item>
-            <img src={logo} alt="logo" className={classes.logo}></img>
+            <img src={logo} alt="logo"></img>
           </Grid>
           <Grid item>
             <Typography
@@ -97,4 +97,4 @@ export default function Home() {
       </Container>
     </div>
   );
-}
+};

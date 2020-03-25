@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./LandingButton.module.css";
 
-const LandingButton = ({ text, icon }) => {
+interface ILandingButton {
+  text: string;
+  icon: JSX.Element;
+}
+
+export const LandingButton: React.FC<ILandingButton> = ({ text, icon }) => {
   return (
     <button className={styles.button}>
       {icon}
@@ -10,5 +15,3 @@ const LandingButton = ({ text, icon }) => {
     </button>
   );
 };
-
-export default LandingButton;

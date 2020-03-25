@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -12,7 +13,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Link from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
-import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -25,22 +25,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Search() {
+interface Data {
+  name: string;
+  address: string;
+  type: string;
+  id: number;
+}
+
+export const Search: React.FC = () => {
   const classes = useStyles();
 
-  const [zipCode, setZipCode] = useState(0);
-  const [doctorData, setDoctorData] = useState([]);
+  const [zipCode, setZipCode] = useState<number>(0);
+  const [doctorData, setDoctorData] = useState<Data[]>([]);
 
-  function handleZipCodeChange(event) {
-    let zipCodeString = event.target.value;
+  const handleZipCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let zipCodeString = Number(event.currentTarget.value);
     if (isNaN(zipCodeString)) {
       console.log(`zip code is not a number: ${zipCodeString}`);
       return;
     }
-    setZipCode(parseInt(zipCodeString));
-  }
 
-  function renderDoctorDataTable(data) {
+    setZipCode(zipCodeString);
+  };
+
+  const renderDoctorDataTable = (data: Data[]) => {
     return (
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
@@ -65,7 +73,7 @@ export default function Search() {
         </Table>
       </TableContainer>
     );
-  }
+  };
 
   useEffect(() => {
     if (zipCode === 22307) {
@@ -101,7 +109,7 @@ export default function Search() {
           <Typography variant="h2">{t("search.headline")}</Typography>
         </Grid>
         <Grid item xs={12} sm={12}>
-          <form className={classes.forms} noValidate autoComplete="off">
+          <form noValidate autoComplete="off">
             <TextField
               id="standard-password-input"
               label="Enter postal code"
@@ -117,4 +125,4 @@ export default function Search() {
       </Grid>
     </Container>
   );
-}
+};

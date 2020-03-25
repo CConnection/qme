@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Queue = () => {
+export const Queue: React.FC = () => {
   let { locationId } = useParams();
   const { t } = useTranslation();
   const classes = useStyles();
@@ -30,9 +30,12 @@ const Queue = () => {
     <Box>
       <Grid>
         <Formik
-          initialValues={{ fullName: "", phone: "", note: "" }}
+          initialValues={{ fullName: "", phone: "", note: "", email: "" }}
           validate={values => {
-            const errors = {};
+            let errors: {
+              fullName: string;
+              phone: string;
+            } = { fullName: "", phone: "" };
             if (!values.fullName) {
               errors.fullName = t("enqueue.form.validation.required");
             }
@@ -131,5 +134,3 @@ const Queue = () => {
     </Box>
   );
 };
-
-export default Queue;

@@ -20,27 +20,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DoctorsQueue() {
+interface Data {
+  name: string;
+  address: string;
+  phone: string;
+}
+
+export const DoctorsQueue: React.FC = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [patientsData, setPatientsData] = useState([
-    { name: "Max Müller", address: "Hauptstaße 12", telefon: "0152 34841890" },
-    { name: "Herbert Meyer", address: "Am Hang 44", telefon: "0162 3423290" },
-    { name: "Klaus Meyer", address: "Am Wald 1", telefon: "0152 3209342098" }
+  const [patientsData, setPatientsData] = useState<Data[]>([
+    { name: "Max Müller", address: "Hauptstaße 12", phone: "0152 34841890" },
+    { name: "Herbert Meyer", address: "Am Hang 44", phone: "0162 3423290" },
+    { name: "Klaus Meyer", address: "Am Wald 1", phone: "0152 3209342098" }
   ]);
-  const [currentPatientsData, setCurrentPatientsData] = useState({
+
+  const [currentPatientsData, setCurrentPatientsData] = useState<
+    Data | undefined
+  >({
     name: "Klaus Jensen",
     address: "Hinter dem Walde 44",
-    telefon: "0162 029349234"
+    phone: "0162 029349234"
   });
 
-  function handleAddEmergency() {
-    // don't use `unshift(...) here because it will not trigger a state change and therefore not update the page
-    setPatientsData([{ name: "EMERGENCY!" }].concat(patientsData));
-  }
+  const handleAddEmergency = () => {
+    setPatientsData(
+      [{ name: "EMERGENCY!", address: "", phone: "" }].concat(patientsData)
+    );
+  };
 
-  function handleDoneWithPatient() {
+  const handleDoneWithPatient = () => {
     if (patientsData.length > 0) {
       if (patientsData[0].name !== "EMERGENCY!") {
         enqueueSnackbar(
@@ -52,13 +62,13 @@ export default function DoctorsQueue() {
       patientsData.shift();
       return;
     }
-    setCurrentPatientsData(null);
-  }
+    setCurrentPatientsData(undefined);
+  };
 
-  function renderPatientsDataTable(data) {
+  const renderPatientsDataTable: React.FC<Data[]> = data => {
     return (
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>name</TableCell>
@@ -73,16 +83,16 @@ export default function DoctorsQueue() {
                   {row.name}
                 </TableCell>
                 <TableCell align="right">{row.address}</TableCell>
-                <TableCell align="right">{row.telefon}</TableCell>
+                <TableCell align="right">{row.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     );
-  }
+  };
 
-  function renderDetailsArea() {
+  const renderDetailsArea: React.FC = () => {
     if (currentPatientsData) {
       if (currentPatientsData.name === "EMERGENCY!") {
         return (
@@ -100,7 +110,7 @@ export default function DoctorsQueue() {
             Your patient is <br />
             {currentPatientsData.name} <br />
             {currentPatientsData.address} <br />
-            {currentPatientsData.telefon} <br />
+            {currentPatientsData.phone} <br />
           </Typography>
         </Box>
       );
@@ -113,7 +123,7 @@ export default function DoctorsQueue() {
         </Typography>
       </Box>
     );
-  }
+  };
 
   return (
     <Container maxWidth="md">
@@ -123,7 +133,7 @@ export default function DoctorsQueue() {
             <Grid item>
               <Typography variant="h1">Dr. Müller's Queue</Typography>
             </Grid>
-            <Grid item>{renderDetailsArea()}</Grid>
+            <Grid item>{renderDetailsArea({})}</Grid>
             <Grid item>
               <Button
                 onClick={handleDoneWithPatient}
@@ -157,4 +167,4 @@ export default function DoctorsQueue() {
       </Grid>
     </Container>
   );
-}
+};

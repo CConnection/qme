@@ -30,7 +30,6 @@ task_install_dependencies() {
 }
 
 task_lint() {
-  (cd frontend && npm run lint)
   (cd functions && npm run lint)
 }
 
