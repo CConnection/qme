@@ -1,29 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "./index.css";
 import { App } from "./app/App";
 import * as serviceWorker from "./serviceWorker";
 
 import "./i18n/i18n";
 
-const theme = createMuiTheme({
-  // setting to null -> use browser default settings -> most likely looking good
-  typography: {
-    h1: undefined,
-    h2: undefined,
-    h3: undefined,
-    h4: undefined,
-    h5: undefined,
-    h6: undefined
-  }
-});
-
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

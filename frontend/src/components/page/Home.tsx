@@ -5,12 +5,28 @@ import EnhancedIcon from "@material-ui/icons/EnhancedEncryption";
 import { Typography, Grid, Container } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import styles from "./Home.module.css";
+
 import logo from "./logo.png";
 
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
+  wrapper: {
+    height: "calc(100vh)",
+    padding: "0",
+    margin: "0",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  iconleft: {
+    fontSize: "7.1rem !important",
+    padding: "0.5rem"
+  },
+  iconright: {
+    fontSize: "7rem !important",
+    padding: "0.5rem"
+  },
   headline: {
     marginBottom: "16px"
   },
@@ -34,6 +50,12 @@ const useStyles = makeStyles({
   },
   fullwidth: {
     width: "100%"
+  },
+  "@media (min-width: 767px)": {
+    icon: {
+      fontSsize: "7rem !important",
+      padding: "1.5rem"
+    }
   }
 });
 
@@ -42,7 +64,7 @@ export const Home: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classes.wrapper}>
       <Container maxWidth="sm">
         <Grid container justify="center" spacing={6}>
           <Grid item>
@@ -71,7 +93,7 @@ export const Home: React.FC = () => {
                     text={t("home.search_locations")}
                     icon={
                       <AssignmentInd
-                        className={styles.iconleft}
+                        className={classes.iconleft}
                         color="primary"
                       />
                     }
@@ -84,7 +106,7 @@ export const Home: React.FC = () => {
                     text={t("home.create_location")}
                     icon={
                       <EnhancedIcon
-                        className={styles.iconright}
+                        className={classes.iconright}
                         color="primary"
                       />
                     }
