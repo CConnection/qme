@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "./index.css";
-import { App } from "./App";
+import { App } from "./app/App";
 import * as serviceWorker from "./serviceWorker";
 
 import "./i18n/i18n";
