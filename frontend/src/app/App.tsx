@@ -1,10 +1,7 @@
 import React, { Suspense } from "react";
-
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import { theme } from "../theme/theme";
-
 import { SnackbarProvider } from "notistack";
-
 import { Home } from "../components/page/Home";
 import { Search } from "../components/page/Search";
 import { Details } from "../components/page/Register";
@@ -22,7 +19,17 @@ export const Providers: React.FC = ({ children }) => {
   );
 };
 
+const useGlobalStyles = makeStyles({
+  "@global": {
+    a: {
+      textDecoration: "none"
+    }
+  }
+});
+
 export const App: React.FC = () => {
+  useGlobalStyles();
+
   return (
     <Providers>
       <Suspense fallback={<PageLoader />}>

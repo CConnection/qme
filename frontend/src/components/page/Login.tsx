@@ -1,36 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import { Container, Paper, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import { Box } from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import { LoginForm } from "../login/LoginForm";
 
-import Box from "@material-ui/core/Box";
-
-const useStyles = makeStyles({
-  paper: {
-    marginTop: "82px",
-    padding: "32px"
-  },
-  headline: {
-    marginBottom: "16px"
-  },
-
-  gridItem: {
-    marginBottom: "16px"
-  },
-  grid: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  buttons: {
-    marginTop: "16px",
-    display: "flex",
-    justifyContent: "space-between"
+const useStyles = makeStyles(theme => ({
+  box: {
+    marginTop: theme.spacing(6)
   }
-});
+}));
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
@@ -38,46 +17,9 @@ export const Login: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Paper className={classes.paper}>
-        <Typography variant="h4" className={classes.headline}>
-          {t("login.headline")}
-        </Typography>
-        <form>
-          <Grid direction="column" className={classes.grid}>
-            <Grid item className={classes.gridItem}>
-              <TextField
-                required
-                id="standard-required"
-                label={t("login.email")}
-                defaultValue=""
-                fullWidth
-              />
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <TextField
-                required
-                id="standard-password-input"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          <Box className={classes.buttons}>
-            <Link to="/login">
-              <Button variant="contained" color="primary">
-                Login
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button variant="contained" color="secondary">
-                Sign Up
-              </Button>
-            </Link>
-          </Box>
-        </form>
-      </Paper>
+      <Box className={classes.box}>
+        <LoginForm title="Login as Doctor" />
+      </Box>
     </Container>
   );
 };
