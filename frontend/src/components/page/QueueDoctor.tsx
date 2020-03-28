@@ -67,7 +67,7 @@ export const QueueDoctor: React.FC = () => {
 
   const renderPatientsDataTable: React.FC<Data[]> = data => {
     return (
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>

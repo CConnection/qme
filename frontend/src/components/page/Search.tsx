@@ -50,7 +50,7 @@ export const Search: React.FC = () => {
 
   const renderDoctorDataTable = (data: Data[]) => {
     return (
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
