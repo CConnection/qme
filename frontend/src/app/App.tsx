@@ -7,13 +7,12 @@ import { SnackbarProvider } from "notistack";
 
 import { Home } from "../components/page/Home";
 import { Search } from "../components/page/Search";
-import { DoctorDetails } from "../components/page/DoctorDetails";
-import { Queue } from "../components/page/Queue";
+import { Details } from "../components/page/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PageLoader } from "../components/loader/PageLoader";
-import { Enqueued } from "../components/page/Enqueued";
+import { QueueClient } from "../components/page/QueueClient";
 import { Login } from "../components/page/Login";
-import { DoctorsQueue } from "../components/page/DoctorsQueue";
+import { QueueDoctor } from "../components/page/QueueDoctor";
 
 export const Providers: React.FC = ({ children }) => {
   return (
@@ -35,20 +34,17 @@ export const App: React.FC = () => {
             <Route path="/search">
               <Search />
             </Route>
-            <Route path="/doctorsQueue">
-              <DoctorsQueue />
+            <Route path="/queuedoctor">
+              <QueueDoctor />
             </Route>
             <Route path="/doctor/:id">
-              <DoctorDetails />
-            </Route>
-            <Route path="/queue/:locationId">
-              <Queue />
+              <Details />
             </Route>
             <Route path="/login">
               <Login />
             </Route>
             <Route path="/enqueued/:enqueueId">
-              <Enqueued />
+              <QueueClient />
             </Route>
           </Switch>
         </Router>
