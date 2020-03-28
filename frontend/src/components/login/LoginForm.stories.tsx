@@ -15,7 +15,6 @@ export const Form: React.FC = () => (
     errorTextFieldLogin={text("Login Textfield error", "")}
     titleTextFieldPassword={text("Password Textfield title", "Password")}
     errorTextFieldPassword={text("Password Textfield error", "")}
-    onLoginClick={action("Clicked Login")}
-    onSignUpCLick={action("Clicked Signup")}
+    onSubmit={action("Clicked Login")}
   />
 );

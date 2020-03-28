@@ -8,12 +8,6 @@ import { Container } from "@material-ui/core";
 
 import { RegisterForm } from "../register/RegisterForm";
 
-const useStyles = makeStyles(theme => ({
-  grid: {
-    marginTop: "40px"
-  }
-}));
-
 const doctorDatas = new Map<string, Data>([
   [
     "1",
@@ -53,7 +47,6 @@ interface Data {
 
 export const Details: React.FC = () => {
   let { id } = useParams();
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const [doctorData, setDoctorData] = useState<Data | undefined>(undefined);
@@ -66,9 +59,11 @@ export const Details: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid className={classes.grid} container spacing={3}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
-          <Typography variant="h4"> {t("register.headline")}</Typography>
+          <Typography variant="h4" color="primary">
+            {t("register.headline")}
+          </Typography>
         </Grid>
         {doctorData && (
           <Grid item xs={12} sm={12}>

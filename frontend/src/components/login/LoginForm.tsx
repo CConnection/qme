@@ -18,8 +18,6 @@ interface ILoginForm {
   errorTextFieldLogin?: string;
   titleTextFieldPassword?: string;
   errorTextFieldPassword?: string;
-  onLoginClick?: (event: React.MouseEvent) => void;
-  onSignUpCLick?: (event: React.MouseEvent) => void;
   onSubmit?: () => void;
 }
 
@@ -114,7 +112,7 @@ export const LoginForm: React.FC<ILoginForm> = props => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={props.onLoginClick}
+                onClick={props.onSubmit}
               >
                 Login
               </Button>

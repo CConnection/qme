@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -13,17 +12,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Link from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles(theme => ({
-  grid: {
-    marginTop: "82px"
-  },
-  typography: {},
-  paper: {},
-  table: {
-    minWidth: 650
-  }
-}));
-
 interface Data {
   name: string;
   address: string;
@@ -32,8 +20,6 @@ interface Data {
 }
 
 export const Search: React.FC = () => {
-  const classes = useStyles();
-
   const [zipCode, setZipCode] = useState<number>(0);
   const [doctorData, setDoctorData] = useState<Data[]>([]);
 
@@ -50,7 +36,7 @@ export const Search: React.FC = () => {
   const renderDoctorDataTable = (data: Data[]) => {
     return (
       <TableContainer>
-        <Table className={classes.table} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>name</TableCell>
@@ -103,9 +89,11 @@ export const Search: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid className={classes.grid} container spacing={3}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
-          <Typography variant="h2">{t("search.headline")}</Typography>
+          <Typography variant="h4" color="primary">
+            {t("search.headline")}
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={12}>
           <form noValidate autoComplete="off">
