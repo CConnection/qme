@@ -22,5 +22,10 @@
     "concurrently": "^5.1.0",
     "firebase-tools": "^7.13.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/yup": "^0.26.33",
+    "formik": "^2.1.4",
+    "formik-material-ui": "^2.0.0-beta.1",
+    "yup": "^0.28.3"
+  }
 }

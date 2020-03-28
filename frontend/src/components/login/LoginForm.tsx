@@ -1,14 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
+import { Formik, Form } from "formik";
+import * as yup from "yup";
 
 const useStyles = makeStyles({
   form: {
     width: "100%"
+  },
+  forget: {
+    textDecoration: "underline"
   }
 });
 
@@ -16,82 +20,88 @@ interface ILoginForm {
   title: string;
   titleTextFieldLogin?: string;
   errorTextFieldLogin?: string;
+  titleForgotPassword?: string;
   titleTextFieldPassword?: string;
   errorTextFieldPassword?: string;
-  onSubmit?: () => void;
+  errorFormSubmit?: string;
+  onSubmit?: (email: string, password: string) => void;
+  onClickForget?: () => void;
 }
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email address is required"),
+  password: yup.string().required("Password is required")
+});
 
 export const LoginForm: React.FC<ILoginForm> = props => {
   const classes = useStyles();
 
-  const LoginTextField = () => {
-    if (props.errorTextFieldLogin) {
-      return (
-        <TextField
-          id="standard-required"
-          label={
-            props.titleTextFieldLogin
-              ? props.titleTextFieldLogin
-              : "Email Address"
+  const InternalForm = () => {
+    return (
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={schema}
+        onSubmit={values => {
+          if (props.onSubmit) {
+            props.onSubmit(values.email, values.password);
           }
-          defaultValue=""
-          fullWidth
-          margin="dense"
-          error
-          helperText={props.errorTextFieldLogin}
-        />
-      );
-    } else {
-      return (
-        <TextField
-          id="standard-required"
-          label={
-            props.titleTextFieldLogin
-              ? props.titleTextFieldLogin
-              : "Email Address"
-          }
-          defaultValue=""
-          fullWidth
-          margin="dense"
-        />
-      );
-    }
-  };
+        }}
+      >
+        {({ errors, handleBlur, handleChange, touched }) => (
+          <Form className={classes.form}>
+            <Typography variant="caption" color="error">
+              {props.errorFormSubmit}
+            </Typography>
 
-  const PasswordTextField = () => {
-    if (props.errorTextFieldPassword) {
-      return (
-        <TextField
-          id="standard-password-input"
-          label={
-            props.titleTextFieldPassword
-              ? props.titleTextFieldPassword
-              : "Password"
-          }
-          type="password"
-          autoComplete="current-password"
-          fullWidth
-          margin="dense"
-          error
-          helperText={props.errorTextFieldPassword}
-        />
-      );
-    } else {
-      return (
-        <TextField
-          id="standard-password-input"
-          label={
-            props.titleTextFieldPassword
-              ? props.titleTextFieldPassword
-              : "Password"
-          }
-          type="password"
-          autoComplete="current-password"
-          fullWidth
-          margin="dense"
-        />
-      );
-    }
+            <Grid container item direction="column" spacing={4}>
+              <Grid item>
+                <TextField
+                  name="email"
+                  label={
+                    props.titleTextFieldLogin
+                      ? props.titleTextFieldLogin
+                      : "Email Address"
+                  }
+                  defaultValue=""
+                  fullWidth
+                  margin="dense"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={errors.email && touched.email ? true : false}
+                  helperText={errors.email && touched.email ? errors.email : ""}
+                />
+                <TextField
+                  name="password"
+                  label={
+                    props.titleTextFieldPassword
+                      ? props.titleTextFieldPassword
+                      : "Password"
+                  }
+                  type="password"
+                  autoComplete="current-password"
+                  fullWidth
+                  margin="dense"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={errors.password && touched.password ? true : false}
+                  helperText={
+                    errors.password && touched.password ? errors.password : ""
+                  }
+                />
+              </Grid>
+              <Grid item>
+                <Button variant="contained" color="primary" type="submit">
+                  Login
+                </Button>
+              </Grid>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
+    );
   };
 
   return (
@@ -101,24 +111,19 @@ export const LoginForm: React.FC<ILoginForm> = props => {
           {props.title}
         </Typography>
       </Grid>
-      <Grid item>
-        <form onSubmit={props.onSubmit} className={classes.form}>
-          <Grid container item direction="column" spacing={4}>
-            <Grid item>
-              <LoginTextField />
-              <PasswordTextField />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={props.onSubmit}
-              >
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+      <Grid container item direction="column" spacing={4}>
+        <Grid item>
+          <InternalForm />
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="subtitle2"
+            className={classes.forget}
+            onClick={props.onClickForget}
+          >
+            {props.titleForgotPassword}
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );
