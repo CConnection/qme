@@ -1,12 +1,13 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import { Container, Paper, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+
 import Box from "@material-ui/core/Box";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   paper: {
@@ -38,7 +39,7 @@ export const Login: React.FC = () => {
   return (
     <Container maxWidth="xs">
       <Paper className={classes.paper}>
-        <Typography variant="h1" className={classes.headline}>
+        <Typography variant="h4" className={classes.headline}>
           {t("login.headline")}
         </Typography>
         <form>

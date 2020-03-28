@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -131,7 +130,7 @@ export const QueueDoctor: React.FC = () => {
         <Grid item xs={12} sm={12}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Typography variant="h1">Dr. Müller's Queue</Typography>
+              <Typography variant="h4">Dr. Müller's Queue</Typography>
             </Grid>
             <Grid item>{renderDetailsArea({})}</Grid>
             <Grid item>
@@ -149,7 +148,7 @@ export const QueueDoctor: React.FC = () => {
         <Grid item>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Typography variant="h1">Queued Patients</Typography>
+              <Typography variant="h4">Queued Patients</Typography>
             </Grid>
             <Grid item>{renderPatientsDataTable(patientsData)}</Grid>
           </Grid>

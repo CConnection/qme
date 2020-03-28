@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid, Typography } from "@material-ui/core";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import FaceIcon from "@material-ui/icons/Face";
-import { useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   spaceBottom: {
@@ -76,7 +76,7 @@ export const QueueClient: React.FC = () => {
         spacing={2}
       >
         <Grid item xs={12} className={classes.spaceBottom}>
-          <Typography variant="h1" align="center" color="primary">
+          <Typography variant="h4" align="center" color="primary">
             {t("enqueued.queue_slot", { queueSlot: enqueueState?.slotNo })}
           </Typography>
         </Grid>

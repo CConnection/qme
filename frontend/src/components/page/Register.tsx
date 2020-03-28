@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
+
 import { RegisterForm } from "../register/RegisterForm";
 
 const useStyles = makeStyles(theme => ({
@@ -67,7 +68,7 @@ export const Details: React.FC = () => {
     <Container maxWidth="md">
       <Grid className={classes.grid} container spacing={3}>
         <Grid item xs={12} sm={12}>
-          <Typography variant="h1"> {t("register.headline")}</Typography>
+          <Typography variant="h4"> {t("register.headline")}</Typography>
         </Grid>
         {doctorData && (
           <Grid item xs={12} sm={12}>

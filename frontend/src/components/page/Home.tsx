@@ -1,10 +1,10 @@
 import React from "react";
-import { LandingButton } from "../button/LandingButton";
+import { useTranslation } from "react-i18next";
+import { makeStyles } from "@material-ui/core/styles";
 import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import EnhancedIcon from "@material-ui/icons/EnhancedEncryption";
 import { Typography, Grid, Container } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { makeStyles } from "@material-ui/core/styles";
+import { LandingButton } from "../button/LandingButton";
 
 import logo from "./logo.png";
 
