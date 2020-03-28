@@ -1,6 +1,9 @@
 # qme
 
+
 **The Problem:**
+Video explanation: https://www.youtube.com/watch?v=9kVjIoGdUPc&t=1s
+
 The main transmission pathway of COVID-19 is the close contact between people. To prevent the virus from spreading further it is crucial to avoid person-on-person contacts as much as possible. This is especially true for full waiting rooms of doctor’s offices or long queues at testing centers. A minimal distance of 1 – 1.5 meters is recommended to protect yourself from getting infected. However it would be best if people would not meet at all.
 
 **Our Solution:**
