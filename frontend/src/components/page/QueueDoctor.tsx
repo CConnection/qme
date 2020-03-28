@@ -26,7 +26,7 @@ interface Data {
   phone: string;
 }
 
-export const DoctorsQueue: React.FC = () => {
+export const QueueDoctor: React.FC = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 

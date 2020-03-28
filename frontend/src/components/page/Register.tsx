@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { Queue } from "./Queue";
+import { RegisterForm } from "../register/RegisterForm";
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -50,7 +50,7 @@ interface Data {
   id: number;
 }
 
-export const DoctorDetails: React.FC = () => {
+export const Details: React.FC = () => {
   let { id } = useParams();
   const classes = useStyles();
   const { t } = useTranslation();
@@ -85,7 +85,7 @@ export const DoctorDetails: React.FC = () => {
           </Grid>
         )}
         <Grid item xs={12} sm={12}>
-          <Queue />
+          <RegisterForm />
         </Grid>
       </Grid>
     </Container>

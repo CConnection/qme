@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Queue: React.FC = () => {
+export const RegisterForm: React.FC = () => {
   let { locationId } = useParams();
   const { t } = useTranslation();
   const classes = useStyles();

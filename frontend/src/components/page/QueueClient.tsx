@@ -4,10 +4,20 @@ import { Container, Grid, Typography } from "@material-ui/core";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import FaceIcon from "@material-ui/icons/Face";
 import { useParams } from "react-router-dom";
-import styles from "./Enqueued.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
+  spaceBottom: {
+    marginBottom: "1.5rem !important"
+  },
+
+  spaceTop: {
+    marginTop: "4rem !important"
+  },
+
+  spaceBottom2: {
+    marginBottom: "1rem !important"
+  },
   paper: {
     marginTop: "40px",
     padding: "32px"
@@ -30,7 +40,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Enqueued: React.FC = () => {
+export const QueueClient: React.FC = () => {
   let { enqueueId } = useParams();
   const { t } = useTranslation();
   const classes = useStyles();
@@ -65,12 +75,12 @@ export const Enqueued: React.FC = () => {
         alignItems="center"
         spacing={2}
       >
-        <Grid item xs={12} className={styles.spaceBottom}>
+        <Grid item xs={12} className={classes.spaceBottom}>
           <Typography variant="h1" align="center" color="primary">
             {t("enqueued.queue_slot", { queueSlot: enqueueState?.slotNo })}
           </Typography>
         </Grid>
-        <Grid item xs={12} className={styles.spaceBottom}>
+        <Grid item xs={12} className={classes.spaceBottom}>
           <Grid
             container
             direction="column"
@@ -95,7 +105,7 @@ export const Enqueued: React.FC = () => {
           <Typography
             variant="h2"
             align="center"
-            className={styles.spaceBottom2}
+            className={classes.spaceBottom2}
           >
             {t("enqueued.appointment_info")}
           </Typography>
