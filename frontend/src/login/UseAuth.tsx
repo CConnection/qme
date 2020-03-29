@@ -31,8 +31,8 @@ export const WithAuth = (WrappedComponent: React.FC): React.FC => {
 
 export const useAuth = (): {
   user: User;
-  signIn: (email: string, password: string) => void;
-  signOut: () => void;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
 } => {
   const authContext = useContext(AuthContext)!;
 
