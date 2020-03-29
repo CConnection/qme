@@ -3,12 +3,12 @@ dotenv.config();
 
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useAuth } from "./UseAuth";
-import { AuthContextProvider } from "./AuthContext";
+import { AuthProvider } from "./AuthProvider";
 
 describe("useAuth", () => {
   it.skip("rejects when email is invalid", async () => {
     const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     const testUser = {
@@ -26,7 +26,7 @@ describe("useAuth", () => {
 
   it("rejects when email does not exist", async () => {
     const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     const testUser = {
@@ -43,7 +43,7 @@ describe("useAuth", () => {
 
   it("can't login when password does not match for user", async () => {
     const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     const testUser = {
@@ -60,7 +60,7 @@ describe("useAuth", () => {
 
   it("can login and is logged in", async () => {
     const { result } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     const testUser = {
@@ -76,7 +76,7 @@ describe("useAuth", () => {
 
   it("is logged out", () => {
     const { result } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     expect(result.current.user.token).toBeUndefined();
@@ -84,7 +84,7 @@ describe("useAuth", () => {
 
   it("can logout successfully", async () => {
     const { result } = renderHook(() => useAuth(), {
-      wrapper: AuthContextProvider
+      wrapper: AuthProvider
     });
 
     const testUser = {

@@ -20,7 +20,7 @@
   "devDependencies": {
     "@firebase/testing": "^0.17.1",
     "concurrently": "^5.1.0",
-    "firebase-tools": "^7.13.0"
+    "firebase-tools": "^7.16.1"
   },
   "dependencies": {
     "@types/yup": "^0.26.33",

@@ -2,8 +2,9 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { auth } from "../firebase/firebase";
-import { User, AuthContext } from "./AuthContext";
+import { User, AuthContext } from "./AuthProvider";
 
+/* eslint-disable react-hooks/rules-of-hooks */
 export const WithAuth = (WrappedComponent: React.FC): React.FC => {
   return () => {
     const authContext = useContext(AuthContext);
@@ -26,6 +27,7 @@ export const WithAuth = (WrappedComponent: React.FC): React.FC => {
     return result;
   };
 };
+/* eslint-disable react-hooks/rules-of-hooks */
 
 export const useAuth = (): {
   user: User;

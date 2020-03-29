@@ -11,7 +11,7 @@ export interface IAuthContext {
 
 export const AuthContext = React.createContext<IAuthContext | null>(null);
 
-export const AuthContextProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>({ token: undefined });
 
   return (

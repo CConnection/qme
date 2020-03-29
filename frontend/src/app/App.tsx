@@ -1,9 +1,8 @@
 import React, { Suspense } from "react";
+import { AuthProvider } from "../login/AuthProvider";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import { theme, useGlobalStyles } from "../theme/theme";
-
 import { Box } from "@material-ui/core";
-import { SnackbarProvider } from "notistack";
 import { Home } from "../components/page/Home";
 import { Search } from "../components/page/Search";
 import { Details } from "../components/page/Register";
@@ -15,9 +14,9 @@ import { QueueDoctor } from "../components/page/QueueDoctor";
 
 export const Providers: React.FC = ({ children }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <SnackbarProvider maxSnack={3}>{children}</SnackbarProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </AuthProvider>
   );
 };
 

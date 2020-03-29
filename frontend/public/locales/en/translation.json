@@ -27,7 +27,13 @@
   "login": {
     "headline": "Login as doctor",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "error": {
+      "invalid": "Email address is not valid",
+      "notexist": "User to given email address does not exist",
+      "disabled": "User corresponding to given email address has been disabled",
+      "password": "Password does not match to given email address"
+    }
   },
   "search": {
     "headline": "Search for doctor"

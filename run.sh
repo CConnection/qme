@@ -54,7 +54,7 @@ task_clean() {
 ###############################################################################
 
 task_run() {
-   ./node_modules/.bin/concurrently "./node_modules/.bin/firebase emulators:start --project=dev" "cd frontend && npm run watch"
+ concurrently './node_modules/.bin/firebase emulators:start --project=default' "cd frontend && npm run watch"
 }
 
 

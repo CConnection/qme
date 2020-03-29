@@ -121,7 +121,9 @@ export const LoginForm: React.FC<ILoginForm> = props => {
             className={classes.forget}
             onClick={props.onClickForget}
           >
-            {props.titleForgotPassword}
+            {props.titleForgotPassword
+              ? props.titleForgotPassword
+              : "Forgot you password"}
           </Typography>
         </Grid>
       </Grid>

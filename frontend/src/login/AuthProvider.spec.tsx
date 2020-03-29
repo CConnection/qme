@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import dotenv from "dotenv";
 dotenv.config();
-import { render, fireEvent, wait, act } from "@testing-library/react";
-import { AuthContext, AuthContextProvider } from "./AuthContext";
+import { render, fireEvent, wait } from "@testing-library/react";
+import { AuthContext, AuthProvider } from "./AuthProvider";
 import "@testing-library/jest-dom/extend-expect";
 import { auth } from "../firebase/firebase";
 
@@ -45,9 +45,9 @@ const MockComponent: React.FC = () => {
 describe("AuthContext", () => {
   it("has no user", () => {
     const dom = (
-      <AuthContextProvider>
+      <AuthProvider>
         <MockComponent></MockComponent>
-      </AuthContextProvider>
+      </AuthProvider>
     );
 
     const { getByText } = render(dom);
@@ -56,9 +56,9 @@ describe("AuthContext", () => {
 
   it("has a user", async () => {
     const dom = (
-      <AuthContextProvider>
+      <AuthProvider>
         <MockComponent></MockComponent>
-      </AuthContextProvider>
+      </AuthProvider>
     );
 
     const { getByText } = render(dom);
