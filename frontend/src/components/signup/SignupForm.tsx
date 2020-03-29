@@ -10,19 +10,18 @@ import * as yup from "yup";
 const useStyles = makeStyles({
   form: {
     width: "100%"
-  },
-  forget: {
-    textDecoration: "underline"
   }
 });
 
-interface ILoginForm {
+interface ISignupForm {
   title: string;
   titleTextFieldLogin?: string;
   errorTextFieldLogin?: string;
   titleForgotPassword?: string;
   titleTextFieldPassword?: string;
   errorTextFieldPassword?: string;
+  titleTextFieldRepeatPassword?: string;
+  errorTextFieldRepeatPassword?: string;
   errorFormSubmit?: string;
   onSubmit?: (email: string, password: string) => void;
   onClickForget?: () => void;
@@ -34,16 +33,24 @@ const schema = yup.object().shape({
     .email("Invalid email address")
     .required("Email address is required")
     .nullable(true),
-  password: yup.string().required("Password is required")
+  password: yup.string().required("Password is required"),
+  repeatpassword: yup
+    .string()
+    .required("Repeat Password is required")
+    .oneOf([yup.ref("password")], "Repeated password does not match.")
 });
 
-export const LoginForm: React.FC<ILoginForm> = props => {
+export const SignupForm: React.FC<ISignupForm> = props => {
   const classes = useStyles();
 
   const InternalForm = () => {
     return (
       <Formik
-        initialValues={{ email: sessionStorage.getItem("email"), password: "" }}
+        initialValues={{
+          email: sessionStorage.getItem("email"),
+          password: "",
+          repeatpassword: ""
+        }}
         validationSchema={schema}
         onSubmit={values => {
           if (props.onSubmit && values.email) {
@@ -99,6 +106,31 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                   }
                   data-testid="login.password"
                 />
+                <TextField
+                  name="repeatpassword"
+                  label={
+                    props.titleTextFieldRepeatPassword
+                      ? props.titleTextFieldRepeatPassword
+                      : "Repeat Password"
+                  }
+                  type="password"
+                  autoComplete="current-password"
+                  fullWidth
+                  margin="dense"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={
+                    errors.repeatpassword && touched.repeatpassword
+                      ? true
+                      : false
+                  }
+                  helperText={
+                    errors.repeatpassword && touched.repeatpassword
+                      ? errors.repeatpassword
+                      : ""
+                  }
+                  data-testid="login.password.repeat"
+                />
               </Grid>
               <Grid item>
                 <Button
@@ -107,7 +139,7 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                   type="submit"
                   data-testid="login.submit"
                 >
-                  Login
+                  Signup
                 </Button>
               </Grid>
             </Grid>
@@ -127,17 +159,6 @@ export const LoginForm: React.FC<ILoginForm> = props => {
       <Grid container item direction="column" spacing={4}>
         <Grid item>
           <InternalForm />
-        </Grid>
-        <Grid item>
-          <Typography
-            variant="subtitle2"
-            className={classes.forget}
-            onClick={props.onClickForget}
-          >
-            {props.titleForgotPassword
-              ? props.titleForgotPassword
-              : "Forgot you password"}
-          </Typography>
         </Grid>
       </Grid>
     </Grid>

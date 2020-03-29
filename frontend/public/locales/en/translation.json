@@ -35,6 +35,12 @@
       "password": "Password does not match to given email address"
     }
   },
+  "signup": {
+    "headline": "Signup as doctor",
+    "email": "Email",
+    "password": "Password",
+    "repeatpassword": "Repeat password"
+  },
   "search": {
     "headline": "Search for doctor"
   },

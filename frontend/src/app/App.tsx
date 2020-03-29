@@ -6,11 +6,13 @@ import { theme, useGlobalStyles } from "../theme/theme";
 import { Box } from "@material-ui/core";
 import { Home } from "../components/page/Home";
 import { Search } from "../components/page/Search";
-import { Details } from "../components/page/Register";
+import { Register } from "../components/page/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PageLoader } from "../components/loader/PageLoader";
 import { QueueClient } from "../components/page/QueueClient";
 import { Login } from "../components/page/Login";
+import { Signup } from "../components/page/Signup";
+import { Profile } from "../components/page/Profile";
 import { QueueDoctor } from "../components/page/QueueDoctor";
 
 export const Providers: React.FC = ({ children }) => {
@@ -58,10 +60,16 @@ export const App: React.FC = () => {
                   <QueueDoctor />
                 </Route>
                 <Route path="/doctor/:id">
-                  <Details />
+                  <Register />
                 </Route>
                 <Route path="/login">
                   <Login />
+                </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
                 </Route>
                 <Route path="/enqueued/:enqueueId">
                   <QueueClient />

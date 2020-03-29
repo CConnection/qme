@@ -3,7 +3,8 @@ import { render, wait } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Login } from "./Login";
 import { useAuth } from "../../login/UseAuth";
-import { LanguageProvider } from "../../test/helpers";
+import { LanguageProvider, RouterProvider } from "../../test/helpers";
+import { Switch, Route } from "react-router-dom";
 
 jest.mock("../../login/UseAuth", () => {
   return {
@@ -16,11 +17,55 @@ jest.mock("../../login/UseAuth", () => {
   };
 });
 
+const Wrapper: React.FC = ({ children }) => {
+  return (
+    <RouterProvider>
+      <LanguageProvider>{children}</LanguageProvider>
+    </RouterProvider>
+  );
+};
+
 describe("Login Page", () => {
   it("has a title with doctor ", () => {
-    const { getByText } = render(<Login />, { wrapper: LanguageProvider });
+    const { getByText } = render(<Login />, { wrapper: Wrapper });
 
     expect(getByText("login.headline")).toBeVisible();
+  });
+
+  it("successfully logs in and redirects to profile page", async () => {
+    const RedirectMock: React.FC = () => <p>redirect</p>;
+
+    const { getByTestId, queryByText, getByText } = render(
+      <Switch>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route exact path="/profile">
+          <RedirectMock />
+        </Route>
+      </Switch>,
+      { wrapper: Wrapper }
+    );
+
+    expect(queryByText("redirect")).toBeNull();
+
+    await wait(() => {
+      userEvent.type(
+        getByTestId("login.email").querySelector("input")!,
+        "test@test.de",
+        { allAtOnce: true }
+      );
+
+      userEvent.type(
+        getByTestId("login.password").querySelector("input")!,
+        "123",
+        { allAtOnce: true }
+      );
+
+      userEvent.click(getByTestId("login.submit"));
+    });
+
+    expect(getByText("redirect")).toBeVisible();
   });
 
   it("shows email is not valid when receiving invalid email", async () => {
@@ -30,7 +75,7 @@ describe("Login Page", () => {
       }
     });
 
-    const { getByTestId, getByText } = render(<Login />);
+    const { getByTestId } = render(<Login />, { wrapper: Wrapper });
 
     await wait(() => {
       userEvent.type(
@@ -64,7 +109,7 @@ describe("Login Page", () => {
       }
     });
 
-    const { getByTestId, getByText } = render(<Login />);
+    const { getByTestId } = render(<Login />, { wrapper: Wrapper });
 
     await wait(() => {
       userEvent.type(
@@ -98,7 +143,7 @@ describe("Login Page", () => {
       }
     });
 
-    const { getByTestId, getByText } = render(<Login />);
+    const { getByTestId } = render(<Login />, { wrapper: Wrapper });
 
     await wait(() => {
       userEvent.type(
@@ -132,7 +177,7 @@ describe("Login Page", () => {
       }
     });
 
-    const { getByTestId, getByText } = render(<Login />);
+    const { getByTestId } = render(<Login />, { wrapper: Wrapper });
 
     await wait(() => {
       userEvent.type(

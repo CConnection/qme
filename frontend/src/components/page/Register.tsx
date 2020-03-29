@@ -45,7 +45,7 @@ interface Data {
   id: number;
 }
 
-export const Details: React.FC = () => {
+export const Register: React.FC = () => {
   let { id } = useParams();
   const { t } = useTranslation();
 
