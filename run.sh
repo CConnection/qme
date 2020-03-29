@@ -62,17 +62,16 @@ task_run() {
 # Test
 ###############################################################################
 task_test_unit_frontend() {
-  echo "test frontend"
+  (cd frontend && npm test)
 }
 
 task_test_unit_backend() {
- echo "test backend"
+  (cd functions && npm test)
 }
 
 task_test() {
    task_lint
    task_test_unit_frontend
-   task_test_unit_backend
 }
 
 ###############################################################################
@@ -104,7 +103,7 @@ task_generate_frontend_config() {
 
   parameter_store="$(./node_modules/firebase-tools/lib/bin/firebase.js --project $env functions:config:get fb.config)"
 
-  touch ./frontend/.env
+  touch ./frontend/config/.env
  
   echo "firebaseConfigApiKey=$(echo $parameter_store | jq '.api.key')" > ./frontend/.env
   echo "firebaseConfigAuthDomain=$(echo $parameter_store | jq '.auth.domain')" >> ./frontend/.env
@@ -115,7 +114,7 @@ task_generate_frontend_config() {
   echo "firebaseConfigAppId=$(echo $parameter_store | jq '.app.id')" >> ./frontend/.env
   echo "firebaseConfigMeasurementId=$(echo $parameter_store | jq '.measurement.id')" >> ./frontend/.env
 
-  cat ./frontend/.env
+  cat ./frontend/config/.env
 }
 
 ###############################################################################

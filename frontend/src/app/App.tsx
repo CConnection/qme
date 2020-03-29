@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { initFirebase } from "../firebase/firebase";
 import { AuthProvider } from "../login/AuthProvider";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import { theme, useGlobalStyles } from "../theme/theme";
@@ -29,35 +30,49 @@ const useStyles = makeStyles({
 export const App: React.FC = () => {
   useGlobalStyles();
   const classes = useStyles();
+  const [firebaseLoaded, setFirebaseLoaded] = useState<Boolean>(false);
 
-  return (
-    <Providers>
-      <Suspense fallback={<PageLoader />}>
-        <Router>
-          <Box className={classes.box}>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/search">
-                <Search />
-              </Route>
-              <Route path="/queuedoctor">
-                <QueueDoctor />
-              </Route>
-              <Route path="/doctor/:id">
-                <Details />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/enqueued/:enqueueId">
-                <QueueClient />
-              </Route>
-            </Switch>
-          </Box>
-        </Router>
-      </Suspense>
-    </Providers>
-  );
+  useEffect(() => {
+    const load = async () => {
+      await initFirebase();
+      setFirebaseLoaded(true);
+    };
+
+    load();
+  }, []);
+
+  if (firebaseLoaded) {
+    return (
+      <Providers>
+        <Suspense fallback={<PageLoader />}>
+          <Router>
+            <Box className={classes.box}>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/search">
+                  <Search />
+                </Route>
+                <Route path="/queuedoctor">
+                  <QueueDoctor />
+                </Route>
+                <Route path="/doctor/:id">
+                  <Details />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/enqueued/:enqueueId">
+                  <QueueClient />
+                </Route>
+              </Switch>
+            </Box>
+          </Router>
+        </Suspense>
+      </Providers>
+    );
+  } else {
+    return <div />;
+  }
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
@@ -42,17 +42,22 @@ export const LoginForm: React.FC<ILoginForm> = props => {
   const InternalForm = () => {
     return (
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: sessionStorage.getItem("email"), password: "" }}
         validationSchema={schema}
         onSubmit={values => {
-          if (props.onSubmit) {
+          if (props.onSubmit && values.email) {
+            sessionStorage.setItem("email", values.email);
             props.onSubmit(values.email, values.password);
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, touched }) => (
+        {({ initialValues, errors, handleBlur, handleChange, touched }) => (
           <Form className={classes.form}>
-            <Typography variant="caption" color="error">
+            <Typography
+              variant="caption"
+              color="error"
+              data-testid="login.error"
+            >
               {props.errorFormSubmit}
             </Typography>
 
@@ -65,13 +70,14 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                       ? props.titleTextFieldLogin
                       : "Email Address"
                   }
-                  defaultValue=""
+                  defaultValue={initialValues.email}
                   fullWidth
                   margin="dense"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   error={errors.email && touched.email ? true : false}
                   helperText={errors.email && touched.email ? errors.email : ""}
+                  data-testid="login.email"
                 />
                 <TextField
                   name="password"
@@ -90,10 +96,16 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                   helperText={
                     errors.password && touched.password ? errors.password : ""
                   }
+                  data-testid="login.password"
                 />
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  data-testid="login.submit"
+                >
                   Login
                 </Button>
               </Grid>

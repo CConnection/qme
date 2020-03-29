@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "../firebase/firebase";
+import { auth } from "firebase";
 import { User, AuthContext } from "./AuthProvider";
 
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -38,8 +38,8 @@ export const useAuth = (): {
 
   const signIn = async (email: string, password: string) => {
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      const token = await auth.currentUser?.getIdToken();
+      await auth().signInWithEmailAndPassword(email, password);
+      const token = await auth().currentUser?.getIdToken();
 
       authContext.setUser({ token: token });
     } catch (err) {
@@ -49,7 +49,7 @@ export const useAuth = (): {
 
   const signOut = async () => {
     try {
-      await auth.signOut();
+      await auth().signOut;
       authContext.setUser({ token: undefined });
     } catch (err) {
       throw err;

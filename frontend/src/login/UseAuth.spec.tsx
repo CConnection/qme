@@ -1,13 +1,33 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useAuth } from "./UseAuth";
 import { AuthProvider } from "./AuthProvider";
+import { auth } from "firebase";
+
+jest.mock("firebase", () => {
+  return {
+    __esModule: true,
+    auth: jest.fn(() => {
+      return {
+        signInWithEmailAndPassword: jest.fn(() => {}),
+        currentUser: {
+          getIdToken: jest.fn(() => "token")
+        }
+      };
+    })
+  };
+});
 
 describe("useAuth", () => {
-  it.skip("rejects when email is invalid", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
+  it("throws error when signin does not work", async () => {
+    ((auth as unknown) as jest.Mock).mockReturnValueOnce({
+      signInWithEmailAndPassword: jest.fn(() => {
+        throw { code: "auth/wrong-password" };
+      }),
+      currentUser: {
+        getIdToken: jest.fn(() => "token")
+      }
+    });
+    const { result } = renderHook(() => useAuth(), {
       wrapper: AuthProvider
     });
 
@@ -17,42 +37,7 @@ describe("useAuth", () => {
     };
 
     try {
-      await result.current.signIn(testUser.email!, testUser.password!);
-    } catch (e) {
-      console.log("rejects email is invalid");
-      expect(e.code).toMatch("auth/invalid-email");
-    }
-  });
-
-  it("rejects when email does not exist", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
-      wrapper: AuthProvider
-    });
-
-    const testUser = {
-      email: "x@x.com",
-      password: "some password"
-    };
-
-    try {
-      await result.current.signIn(testUser.email!, testUser.password!);
-    } catch (e) {
-      expect(e.code).toMatch("auth/user-not-found");
-    }
-  });
-
-  it("can't login when password does not match for user", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
-      wrapper: AuthProvider
-    });
-
-    const testUser = {
-      email: process.env.TEST_USER_EMAIL,
-      password: "some password"
-    };
-
-    try {
-      await result.current.signIn(testUser.email!, testUser.password!);
+      await result.current.signIn(testUser.email, testUser.password);
     } catch (e) {
       expect(e.code).toMatch("auth/wrong-password");
     }
@@ -64,8 +49,8 @@ describe("useAuth", () => {
     });
 
     const testUser = {
-      email: process.env.TEST_USER_EMAIL,
-      password: process.env.TEST_USER_PASSWORD
+      email: "x.com",
+      password: "some password"
     };
 
     await act(async () => {
@@ -74,7 +59,7 @@ describe("useAuth", () => {
     });
   });
 
-  it("is logged out", () => {
+  it("is logged out as default", () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: AuthProvider
     });
