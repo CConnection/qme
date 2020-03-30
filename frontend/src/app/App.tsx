@@ -14,12 +14,15 @@ import { Login } from "../components/page/Login";
 import { Signup } from "../components/page/Signup";
 import { Profile } from "../components/page/Profile";
 import { QueueDoctor } from "../components/page/QueueDoctor";
+import { SnackbarProvider } from "notistack";
 
 export const Providers: React.FC = ({ children }) => {
   return (
-    <AuthProvider>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </AuthProvider>
+    <SnackbarProvider maxSnack={3}>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </AuthProvider>
+    </SnackbarProvider>
   );
 };
 

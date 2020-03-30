@@ -14,8 +14,8 @@ import { useSnackbar } from "notistack";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
-  grid: {
-    marginTop: "40px"
+  emergency: {
+    backgroundColor: "#F33200"
   }
 }));
 
@@ -126,11 +126,13 @@ export const QueueDoctor: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid container direction="column" spacing={8} className={classes.grid}>
+      <Grid container direction="column" spacing={8}>
         <Grid item xs={12} sm={12}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Typography variant="h4">Dr. Müller's Queue</Typography>
+              <Typography variant="h4" color="primary">
+                Dr. Müller's Queue
+              </Typography>
             </Grid>
             <Grid item>{renderDetailsArea({})}</Grid>
             <Grid item>
@@ -148,7 +150,9 @@ export const QueueDoctor: React.FC = () => {
         <Grid item>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Typography variant="h4">Queued Patients</Typography>
+              <Typography variant="h4" color="primary">
+                Queued Patients
+              </Typography>
             </Grid>
             <Grid item>{renderPatientsDataTable(patientsData)}</Grid>
           </Grid>
@@ -156,9 +160,10 @@ export const QueueDoctor: React.FC = () => {
         <Grid item>
           <Button
             onClick={handleAddEmergency}
-            color={"secondary"}
-            variant={"contained"}
+            color="secondary"
+            variant="contained"
             fullWidth
+            className={classes.emergency}
           >
             add emergency
           </Button>

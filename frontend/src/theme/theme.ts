@@ -15,6 +15,9 @@ export const theme = createMuiTheme({
     },
     secondary: {
       main: "#5D5D5D"
+    },
+    warning: {
+      main: "#F33200"
     }
   },
   // setting to null -> use browser default settings -> most likely looking good
