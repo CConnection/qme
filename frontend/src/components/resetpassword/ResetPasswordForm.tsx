@@ -121,7 +121,7 @@ export const ResetPasswordForm: React.FC<IResetForm> = props => {
     //       exitActive: classes.exitActive
     //     }}
     //   >
-    <Box>
+    <>
       {props.showConfirmation ? (
         <Grid container direction="column" spacing={2}>
           <Grid item>
@@ -160,7 +160,7 @@ export const ResetPasswordForm: React.FC<IResetForm> = props => {
           </Grid>
         </Grid>
       )}
-    </Box>
+    </>
     //   </CSSTransition>
     // </SwitchTransition>
   );
