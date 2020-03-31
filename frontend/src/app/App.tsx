@@ -4,16 +4,17 @@ import { AuthProvider } from "../login/AuthProvider";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import { theme, useGlobalStyles } from "../theme/theme";
 import { Box } from "@material-ui/core";
-import { Home } from "../components/page/Home";
-import { Search } from "../components/page/Search";
-import { Register } from "../components/page/Register";
+import { Home } from "../components/pages/Home";
+import { Search } from "../components/pages/Search";
+import { Register } from "../components/pages/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PageLoader } from "../components/loader/PageLoader";
-import { QueueClient } from "../components/page/QueueClient";
-import { Login } from "../components/page/Login";
-import { Signup } from "../components/page/Signup";
-import { Profile } from "../components/page/Profile";
-import { QueueDoctor } from "../components/page/QueueDoctor";
+import { QueueClient } from "../components/pages/QueueClient";
+import { Login } from "../components/pages/Login";
+import { Signup } from "../components/pages/Signup";
+import { Profile } from "../components/pages/Profile";
+import { QueueDoctor } from "../components/pages/QueueDoctor";
+import { ResetPassword } from "../components/pages/resetpassword/ResetPassword";
 import { SnackbarProvider } from "notistack";
 
 export const Providers: React.FC = ({ children }) => {
@@ -73,6 +74,9 @@ export const App: React.FC = () => {
                 </Route>
                 <Route path="/profile">
                   <Profile />
+                </Route>
+                <Route path="/resetpassword">
+                  <ResetPassword />
                 </Route>
                 <Route path="/enqueued/:enqueueId">
                   <QueueClient />

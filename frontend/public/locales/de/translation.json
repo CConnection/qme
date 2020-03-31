@@ -1,1 +1,20 @@
-{}
+{
+  "resetpassword": {
+  "send": {
+    "headline": "Reset your password",
+    "textfields": {
+      "email": {
+        "label": "Email address",
+        "errors": {
+          "invalid": "Email address is invalid",
+          "required": "Email address is required"
+        }
+    },
+    "submit": "Reset password"
+  },
+  "verify": {
+    "headline": "Successfully sent email",
+    "message": "We sent an email to {{email}}. Click on the link in the email to set a new password.",
+    "resend": "Resend email"
+  }
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
@@ -17,28 +18,23 @@ const useStyles = makeStyles({
 });
 
 interface ILoginForm {
-  title: string;
-  titleTextFieldLogin?: string;
-  errorTextFieldLogin?: string;
-  titleForgotPassword?: string;
-  titleTextFieldPassword?: string;
-  errorTextFieldPassword?: string;
-  errorFormSubmit?: string;
   onSubmit?: (email: string, password: string) => void;
+  errorOnSubmit?: string;
   onClickForget?: () => void;
 }
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email address")
-    .required("Email address is required")
-    .nullable(true),
-  password: yup.string().required("Password is required")
-});
-
 export const LoginForm: React.FC<ILoginForm> = props => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email(t("login.textfields.email.errors.invalid"))
+      .required(t("login.textfields.email.errors.required"))
+      .nullable(true),
+    password: yup.string().required("Password is required")
+  });
 
   const InternalForm = () => {
     return (
@@ -59,18 +55,14 @@ export const LoginForm: React.FC<ILoginForm> = props => {
               color="error"
               data-testid="login.error"
             >
-              {props.errorFormSubmit}
+              {props.errorOnSubmit}
             </Typography>
 
             <Grid container item direction="column" spacing={4}>
               <Grid item>
                 <TextField
                   name="email"
-                  label={
-                    props.titleTextFieldLogin
-                      ? props.titleTextFieldLogin
-                      : "Email Address"
-                  }
+                  label={t("login.textfields.email.label")}
                   defaultValue={initialValues.email}
                   fullWidth
                   margin="dense"
@@ -82,11 +74,7 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                 />
                 <TextField
                   name="password"
-                  label={
-                    props.titleTextFieldPassword
-                      ? props.titleTextFieldPassword
-                      : "Password"
-                  }
+                  label={t("login.textfields.password.label")}
                   type="password"
                   autoComplete="current-password"
                   fullWidth
@@ -107,7 +95,7 @@ export const LoginForm: React.FC<ILoginForm> = props => {
                   type="submit"
                   data-testid="login.submit"
                 >
-                  Login
+                  {t("login.submit")}
                 </Button>
               </Grid>
             </Grid>
@@ -118,10 +106,10 @@ export const LoginForm: React.FC<ILoginForm> = props => {
   };
 
   return (
-    <Grid container direction="column" spacing={1}>
+    <Grid container direction="column" spacing={2}>
       <Grid item>
         <Typography variant="h4" color="primary">
-          {props.title}
+          {t("login.headline")}
         </Typography>
       </Grid>
       <Grid container item direction="column" spacing={4}>
@@ -134,9 +122,7 @@ export const LoginForm: React.FC<ILoginForm> = props => {
             className={classes.forget}
             onClick={props.onClickForget}
           >
-            {props.titleForgotPassword
-              ? props.titleForgotPassword
-              : "Forgot you password"}
+            {t("login.forgotPassword")}
           </Typography>
         </Grid>
       </Grid>

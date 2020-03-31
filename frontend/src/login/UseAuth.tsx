@@ -33,6 +33,9 @@ export const useAuth = (): {
   user: User;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  signUp: (email: string, password: string) => Promise<void>;
+  sendPasswordResetEmail: (email: string) => Promise<void>;
+  setPassword: (code: string, password: string) => Promise<void>;
 } => {
   const authContext = useContext(AuthContext)!;
 
@@ -56,5 +59,32 @@ export const useAuth = (): {
     }
   };
 
-  return { user: authContext.user, signIn: signIn, signOut: signOut };
+  const signUp = async (email: string, password: string) => {
+    try {
+      await auth().createUserWithEmailAndPassword(email, password);
+      const token = await auth().currentUser?.getIdToken();
+      authContext.setUser({ token: token });
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const sendPasswordResetEmail = async (email: string) => {
+    try {
+      await auth().sendPasswordResetEmail(email);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const setPassword = async (code: string, password: string) => {};
+
+  return {
+    user: authContext.user,
+    signIn,
+    signOut,
+    signUp,
+    sendPasswordResetEmail,
+    setPassword
+  };
 };

@@ -1,11 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Formik, Form } from "formik";
-import * as yup from "yup";
 
 const useStyles = makeStyles({
   form: {
@@ -14,34 +15,32 @@ const useStyles = makeStyles({
 });
 
 interface ISignupForm {
-  title: string;
-  titleTextFieldLogin?: string;
-  errorTextFieldLogin?: string;
-  titleForgotPassword?: string;
-  titleTextFieldPassword?: string;
-  errorTextFieldPassword?: string;
-  titleTextFieldRepeatPassword?: string;
-  errorTextFieldRepeatPassword?: string;
-  errorFormSubmit?: string;
   onSubmit?: (email: string, password: string) => void;
+  errorOnSubmit?: string;
   onClickForget?: () => void;
 }
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email address")
-    .required("Email address is required")
-    .nullable(true),
-  password: yup.string().required("Password is required"),
-  repeatpassword: yup
-    .string()
-    .required("Repeat Password is required")
-    .oneOf([yup.ref("password")], "Repeated password does not match.")
-});
-
 export const SignupForm: React.FC<ISignupForm> = props => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email(t("signup.textfields.email.errors.invalid"))
+      .required(t("signup.textfields.email.errors.required"))
+      .nullable(true),
+    password: yup
+      .string()
+      .required(t("signup.textfields.password.errors.required")),
+    repeatpassword: yup
+      .string()
+      .required(t("signup.textfields.repeatpassword.errors.required"))
+      .oneOf(
+        [yup.ref("password")],
+        t("signup.textfields.repeatpassword.errors.nomatch")
+      )
+  });
 
   const InternalForm = () => {
     return (
@@ -64,20 +63,16 @@ export const SignupForm: React.FC<ISignupForm> = props => {
             <Typography
               variant="caption"
               color="error"
-              data-testid="login.error"
+              data-testid="signup.error"
             >
-              {props.errorFormSubmit}
+              {props.errorOnSubmit}
             </Typography>
 
             <Grid container item direction="column" spacing={4}>
               <Grid item>
                 <TextField
                   name="email"
-                  label={
-                    props.titleTextFieldLogin
-                      ? props.titleTextFieldLogin
-                      : "Email Address"
-                  }
+                  label={t("signup.textfields.email.label")}
                   defaultValue={initialValues.email}
                   fullWidth
                   margin="dense"
@@ -85,15 +80,11 @@ export const SignupForm: React.FC<ISignupForm> = props => {
                   onChange={handleChange}
                   error={errors.email && touched.email ? true : false}
                   helperText={errors.email && touched.email ? errors.email : ""}
-                  data-testid="login.email"
+                  data-testid="signup.email"
                 />
                 <TextField
                   name="password"
-                  label={
-                    props.titleTextFieldPassword
-                      ? props.titleTextFieldPassword
-                      : "Password"
-                  }
+                  label={t("signup.textfields.password.label")}
                   type="password"
                   autoComplete="current-password"
                   fullWidth
@@ -104,15 +95,11 @@ export const SignupForm: React.FC<ISignupForm> = props => {
                   helperText={
                     errors.password && touched.password ? errors.password : ""
                   }
-                  data-testid="login.password"
+                  data-testid="signup.password"
                 />
                 <TextField
                   name="repeatpassword"
-                  label={
-                    props.titleTextFieldRepeatPassword
-                      ? props.titleTextFieldRepeatPassword
-                      : "Repeat Password"
-                  }
+                  label={t("signup.textfields.repeatpassword.label")}
                   type="password"
                   autoComplete="current-password"
                   fullWidth
@@ -129,7 +116,7 @@ export const SignupForm: React.FC<ISignupForm> = props => {
                       ? errors.repeatpassword
                       : ""
                   }
-                  data-testid="login.password.repeat"
+                  data-testid="signup.repeatpassword"
                 />
               </Grid>
               <Grid item>
@@ -137,7 +124,7 @@ export const SignupForm: React.FC<ISignupForm> = props => {
                   variant="contained"
                   color="primary"
                   type="submit"
-                  data-testid="login.submit"
+                  data-testid="signup.submit"
                 >
                   Signup
                 </Button>
@@ -150,10 +137,10 @@ export const SignupForm: React.FC<ISignupForm> = props => {
   };
 
   return (
-    <Grid container direction="column" spacing={1}>
+    <Grid container direction="column" spacing={2}>
       <Grid item>
         <Typography variant="h4" color="primary">
-          {props.title}
+          {t("signup.headline")}
         </Typography>
       </Grid>
       <Grid container item direction="column" spacing={4}>

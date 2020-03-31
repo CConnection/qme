@@ -18,19 +18,19 @@ export const Login: React.FC = () => {
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-email": {
-          setError(t("login.error.invalid"));
+          setError(t("login.errors.invalid"));
           break;
         }
         case "auth/user-disabled": {
-          setError(t("login.error.disabled"));
+          setError(t("login.errors.disabled"));
           break;
         }
         case "auth/user-not-found": {
-          setError(t("login.error.notexist"));
+          setError(t("login.errors.notexist"));
           break;
         }
         case "auth/wrong-password": {
-          setError(t("login.error.password"));
+          setError(t("login.errors.password"));
           break;
         }
       }
@@ -39,13 +39,7 @@ export const Login: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <LoginForm
-        title={t("login.headline")}
-        titleTextFieldLogin={t("login.email")}
-        titleTextFieldPassword={t("login.password")}
-        onSubmit={signin}
-        errorFormSubmit={error}
-      />
+      <LoginForm onSubmit={signin} errorOnSubmit={error} />
     </Container>
   );
 };

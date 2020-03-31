@@ -98,7 +98,7 @@ describe("Login Page", () => {
     );
 
     expect(getByTestId("login.error").textContent).toEqual(
-      "login.error.invalid"
+      "login.errors.invalid"
     );
   });
 
@@ -132,7 +132,7 @@ describe("Login Page", () => {
     );
 
     expect(getByTestId("login.error").textContent).toEqual(
-      "login.error.disabled"
+      "login.errors.disabled"
     );
   });
 
@@ -166,7 +166,7 @@ describe("Login Page", () => {
     );
 
     expect(getByTestId("login.error").textContent).toEqual(
-      "login.error.notexist"
+      "login.errors.notexist"
     );
   });
 
@@ -197,10 +197,6 @@ describe("Login Page", () => {
 
     expect(getByTestId("login.email").querySelector("input")!.value).toEqual(
       "test@test.de"
-    );
-
-    expect(getByTestId("login.error").textContent).toEqual(
-      "login.error.password"
     );
   });
 });

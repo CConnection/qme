@@ -26,20 +26,106 @@
   },
   "login": {
     "headline": "Login as doctor",
-    "email": "Email",
-    "password": "Password",
-    "error": {
-      "invalid": "Email address is not valid",
-      "notexist": "User to given email address does not exist",
-      "disabled": "User corresponding to given email address has been disabled",
-      "password": "Password does not match to given email address"
+    "textfields": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "invalid": "Email address is invalid",
+          "required": "Email address is required"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required"
+        }
+      }
+    },
+    "submit": "Login",
+    "forgotPassword": "Forgot your password?",
+    "errors": {
+      "invalid": "Email address is not valid.",
+      "notexist": "User to given email address does not exist.",
+      "disabled": "User corresponding to given email address has been disabled.",
+      "password": "Password does not match to given email address."
     }
   },
   "signup": {
     "headline": "Signup as doctor",
-    "email": "Email",
-    "password": "Password",
-    "repeatpassword": "Repeat password"
+    "textfields": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "invalid": "Email address is invalid",
+          "required": "Email address is required"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required"
+        }
+      },
+      "repeatpassword": {
+        "label": "Repeat Password",
+        "errors": {
+          "required": "Repeat password is required",
+          "nomatch": "Repeated password does not match"
+        }
+      }
+    },
+    "errors": {
+      "invalid": "Email address is invalid.",
+      "alreadyuse": "Email address is already in use.",
+      "notallowed": "Email/Password accounts are not enabled.",
+      "weakpassword": "Password is not strong enough."
+    }
+  },
+  "resetpassword": {
+    "send": {
+      "headline": "Reset your password",
+      "textfields": {
+        "email": {
+          "label": "Email",
+          "errors": {
+            "invalid": "Email address is invalid",
+            "required": "Email address is required"
+          }
+        }
+      },
+      "submit": "Reset password"
+    },
+    "confirm": {
+      "headline": "Successfully sent email",
+      "message": "We sent an email to {{email}}. Click on the link in the email to set a new password.",
+      "resend": "Resend email"
+    }
+  },
+  "confirmpassword": {
+    "headline": "Set new password",
+    "textfields": {
+      "newpassword": {
+        "label": "New Password",
+        "errors": {
+          "required": "New password is required",
+          "invalid": "Email address is invalid.",
+          "notfound": "User to given email address does not exist."
+        }
+      },
+      "repeatpassword": {
+        "label": "Repeat New Password",
+        "errors": {
+          "required": "Repeat password is required",
+          "nomatch": "Repeated password does not match",
+          "expired": "Verification code has expired. Request a new verifciation code.",
+          "invalid": "Verification code is invalid.",
+          "disabled": "User corresponding to given email address has been disabled.",
+          "notfound": "User to given email address does not exist.",
+          "weakpassword": "Password is not strong enough."
+        }
+      }
+    },
+    "submit": "Set Password"
   },
   "search": {
     "headline": "Search for doctor"
