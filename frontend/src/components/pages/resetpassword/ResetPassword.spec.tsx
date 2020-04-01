@@ -16,6 +16,13 @@ jest.mock("../../../login/UseAuth", () => {
   };
 });
 
+jest.mock("../../../components/resetpassword/Animation.tsx", () => {
+  return {
+    __esModule: true,
+    Animated: jest.fn(({ children }) => children)
+  };
+});
+
 const Wrapper: React.FC = ({ children }) => {
   return (
     <RouterProvider>

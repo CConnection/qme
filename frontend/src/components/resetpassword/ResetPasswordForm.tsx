@@ -1,32 +1,17 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-// import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { Animated } from "./Animation";
 
 const useStyles = makeStyles({
   form: {
     width: "100%"
-  },
-  enter: {
-    opacity: 0
-  },
-  enterActive: {
-    transition: "opacity 300ms",
-    opacity: 1
-  },
-  exit: {
-    opacity: 1
-  },
-  exitActive: {
-    transition: "opacity 300ms",
-    opacity: 0
   }
 });
 
@@ -108,20 +93,7 @@ export const ResetPasswordForm: React.FC<IResetForm> = props => {
   };
 
   return (
-    // <SwitchTransition>
-    //   <CSSTransition
-    //     key={props.showConfirmation ? "Sent Email" : "Send Email"}
-    //     addEndListener={(node, done) =>
-    //       node.addEventListener("transitionend", done, false)
-    //     }
-    //     classNames={{
-    //       enter: classes.enter,
-    //       enterActive: classes.enterActive,
-    //       exit: classes.exit,
-    //       exitActive: classes.exitActive
-    //     }}
-    //   >
-    <>
+    <Animated showConfirmation={props.showConfirmation}>
       {props.showConfirmation ? (
         <Grid container direction="column" spacing={2}>
           <Grid item>
@@ -160,8 +132,6 @@ export const ResetPasswordForm: React.FC<IResetForm> = props => {
           </Grid>
         </Grid>
       )}
-    </>
-    //   </CSSTransition>
-    // </SwitchTransition>
+    </Animated>
   );
 };
