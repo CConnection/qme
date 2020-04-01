@@ -20,11 +20,11 @@ export const ResetPassword: React.FC = () => {
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-email": {
-          setSendVerificationCodeError(t("forgot.forgotform.error.invalid"));
+          setSendVerificationCodeError(t("resetpassword.send.errors.invalid"));
           break;
         }
         case "auth/user-not-found": {
-          setSendVerificationCodeError(t("forgot.forgotform.error.notfound"));
+          setSendVerificationCodeError(t("resetpassword.send.errors.notfound"));
           break;
         }
       }

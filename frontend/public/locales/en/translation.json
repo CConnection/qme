@@ -93,7 +93,11 @@
           }
         }
       },
-      "submit": "Reset password"
+      "submit": "Reset password",
+      "errors": {
+        "invalid": "Email address is invalid.",
+        "notfound": "User to given email address does not exist."
+      }
     },
     "confirm": {
       "headline": "Successfully sent email",
